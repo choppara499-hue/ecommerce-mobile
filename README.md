@@ -1,56 +1,124 @@
-# Welcome to your Expo app 👋
+# MyStore — React Native E-Commerce App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Project Description
 
-## Get started
+MyStore is a mobile e-commerce application built using React Native and Expo. This project is the mobile version of my existing e-commerce application.
 
-1. Install dependencies
+The purpose of this project is to learn React Native components, Expo, reusable components, Flexbox layouts, and mobile UI development.
 
-   ```bash
-   npm install
-   ```
+## Technologies Used
 
-2. Start the app
+- React Native
+- Expo
+- TypeScript
+- Expo Router
+- React Native StyleSheet
+- Expo Go
 
-   ```bash
-   npx expo start
-   ```
+## Features
 
-In the output, you'll find options to open the app in a
+- MyStore home screen
+- Welcome message and promotional banner
+- Four product categories
+- Featured products with images, names, and prices
+- Reusable ProductCard component
+- Reusable CategoryItem component
+- Reusable SectionHeader component
+- Reusable PrimaryButton component
+- Scrollable home screen
+- Flexbox-based layouts
+- Product details screen
+- Add to Cart functionality
+- Cart screen with product names, prices, and quantities
+- Increase and decrease product quantities
+- Automatic cart total calculation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project Structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```text
+ecommerce-mobile/
+├── src/
+│   ├── app/
+│   │   ├── _layout.tsx
+│   │   ├── index.tsx
+│   │   ├── explore.tsx
+│   │   ├── product-details.tsx
+│   │   └── cart.tsx
+│   ├── components/
+│   │   ├── ProductCard.tsx
+│   │   ├── CategoryItem.tsx
+│   │   ├── SectionHeader.tsx
+│   │   └── PrimaryButton.tsx
+│   └── context/
+├── assets/
+├── package.json
+├── app.json
+└── README.md
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Requirements
 
-### Other setup steps
+- Node.js LTS
+- npm
+- VS Code
+- Expo Go on an Android phone
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Installation
 
-## Learn more
+Clone or download the project, then open the project folder in the terminal.
 
-To learn more about developing your project with Expo, look at the following resources:
+Install dependencies:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm install
+```
 
-## Join the community
+Start the Expo development server:
 
-Join our community of developers creating universal apps.
+```bash
+npx expo start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Scan the QR code using Expo Go on your Android phone. Make sure your computer and phone can connect to the same network.
+
+## React Native Concepts Learned
+
+- `View` for layouts and containers
+- `Text` for displaying text
+- `Image` for product images
+- `ScrollView` for scrollable content
+- `Pressable` and touchable components for interactions
+- `StyleSheet` for styling
+- Props for passing data to reusable components
+- Flexbox for mobile layouts
+- Expo for running and testing the mobile app
+
+## Backend
+
+The existing Node.js and Express backend will be reused in later assignments. This assignment focuses on the React Native UI and basic mobile development.
+
+## Testing
+
+The app has been tested on an Android phone using Expo Go.
+
+Verified functionality includes:
+
+- Home screen display
+- Category and product display
+- Product images
+- Product details navigation
+- Add to Cart
+- View Cart
+- Quantity increase and decrease
+- Cart total calculation
+- Home screen scrolling
+
+## Future Improvements
+
+- Connect product data to the existing backend API
+- Implement product listing using FlatList
+- Add authentication and user-specific features in later assignments
+
+## Author
+
+React Native Assignment 1 — MyStore Mobile E-Commerce Application
