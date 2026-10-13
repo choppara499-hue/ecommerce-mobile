@@ -1,0 +1,58 @@
+export const products = [
+  {
+    id: "p1",
+    name: "Everyday Backpack",
+    price: 1299,
+    category: "Accessories",
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400",
+  },
+  {
+    id: "p2",
+    name: "Wireless Headphones",
+    price: 1999,
+    category: "Electronics",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
+  },
+  {
+    id: "p3",
+    name: "Smartphone",
+    price: 25000,
+    category: "Electronics",
+    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400",
+  },
+  {
+    id: "p4",
+    name: "Laptop",
+    price: 55000,
+    category: "Electronics",
+    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400",
+  },
+  {
+    id: "p5",
+    name: "Smart Watch",
+    price: 4999,
+    category: "Accessories",
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400",
+  },
+  {
+    id: "p6",
+    name: "Camera",
+    price: 30000,
+    category: "Electronics",
+    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400",
+  },
+  {
+    id: "p7",
+    name: "Bluetooth Speaker",
+    price: 2499,
+    category: "Electronics",
+    image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400",
+  },
+  {
+    id: "p8",
+    name: "Keyboard",
+    price: 1499,
+    category: "Accessories",
+    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400",
+  },
+];

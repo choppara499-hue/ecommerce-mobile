@@ -1,67 +1,72 @@
 
+import React from "react";
 import {
-  StyleSheet,
-  Text,
   View,
-  Pressable,
+  Text,
   Image,
+  StyleSheet,
+  Pressable,
+  Alert,
 } from "react-native";
 
-import { router } from "expo-router";
-
-type ProductCardProps = {
+type Product = {
+  id: string;
   name: string;
   price: number;
-  emoji: string;
+  category: string;
   image: string;
 };
 
-export default function ProductCard({
-  name,
-  price,
-  emoji,
-  image,
-}: ProductCardProps) {
-  const handleViewProduct = () => {
-    router.push({
-      pathname: "/product-details",
-      params: {
-        name,
-        price: String(price),
-        emoji,
-      },
-    });
+type ProductCardProps = {
+  product: Product;
+};
+
+export default function ProductCard({ product }: ProductCardProps) {
+  const handlePress = () => {
+    Alert.alert(
+      "Product Selected",
+      `${product.name}\nPrice: ₹${product.price.toLocaleString(
+        "en-IN"
+      )}\nCategory: ${product.category}`
+    );
   };
 
   return (
     <View style={styles.card}>
-      {/* Actual Product Image */}
-      <View style={styles.imageBox}>
-        <Image
-          source={{ uri: image }}
-          style={styles.image}
-          resizeMode="contain"
-          accessibilityLabel={name}
-        />
-      </View>
+      <Image
+        source={{ uri: product.image }}
+        style={styles.image}
+        resizeMode="contain"
+      />
 
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.productId}>ID: {product.id}</Text>
 
-      <Text style={styles.price}>
-        ₹{price.toLocaleString("en-IN")}
+      <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
+        {product.name}
       </Text>
 
-      <Text style={styles.stock}>● In Stock</Text>
+      <Text style={styles.price}>
+        ₹{product.price.toLocaleString("en-IN")}
+      </Text>
+
+      <Text
+        style={styles.category}
+        numberOfLines={1}
+        ellipsizeMode="tail"
+      >
+        {product.category}
+      </Text>
 
       <Pressable
         style={({ pressed }) => [
           styles.button,
           pressed && styles.buttonPressed,
         ]}
-        onPress={handleViewProduct}
+        onPress={handlePress}
         accessibilityRole="button"
+        accessibilityLabel={`View details for ${product.name}`}
       >
-        <Text style={styles.buttonText}>View Product</Text>
+        <Text style={styles.buttonText}>View Details</Text>
       </Pressable>
     </View>
   );
@@ -69,55 +74,62 @@ export default function ProductCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#ffffff",
-    marginHorizontal: 20,
-    marginBottom: 20,
-    padding: 15,
+    flex: 1,
+    minWidth: 0,
+    backgroundColor: "#FFFFFF",
     borderRadius: 12,
+    padding: 10,
+    margin: 6,
     elevation: 3,
-  },
-  imageBox: {
-    height: 180,
-    backgroundColor: "#eeeeee",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
   },
   image: {
     width: "100%",
-    height: "100%",
+    height: 120,
+    backgroundColor: "#F1F5F9",
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  productId: {
+    fontSize: 11,
+    color: "#64748B",
+    marginBottom: 4,
   },
   name: {
-    fontSize: 20,
+    minHeight: 40,
+    fontSize: 15,
     fontWeight: "bold",
-    marginTop: 12,
-    color: "#222222",
+    color: "#1E293B",
+    marginBottom: 5,
   },
   price: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: "bold",
-    marginTop: 6,
-    color: "#111827",
+    color: "#2563EB",
+    marginBottom: 5,
   },
-  stock: {
-    color: "green",
-    marginTop: 6,
+  category: {
+    fontSize: 12,
+    color: "#64748B",
+    marginBottom: 12,
   },
   button: {
-    backgroundColor: "#2563eb",
-    padding: 12,
+    backgroundColor: "#2563EB",
+    paddingVertical: 10,
+    paddingHorizontal: 4,
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 12,
+    marginTop: "auto",
   },
   buttonPressed: {
-    backgroundColor: "#1d4ed8",
-    opacity: 0.85,
+    opacity: 0.7,
   },
   buttonText: {
-    color: "#ffffff",
-    fontSize: 16,
+    color: "#FFFFFF",
     fontWeight: "bold",
+    fontSize: 12,
   },
 });
