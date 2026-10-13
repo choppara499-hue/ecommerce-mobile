@@ -2,9 +2,7 @@
 
 ## Project Description
 
-MyStore is a mobile e-commerce application built using React Native and Expo. This project is the mobile version of my existing e-commerce application.
-
-The purpose of this project is to learn React Native components, Expo, reusable components, Flexbox layouts, and mobile UI development.
+MyStore is a mobile e-commerce application built using React Native, Expo, and TypeScript. This assignment focuses on displaying sample products using reusable components and a scrollable product list.
 
 ## Technologies Used
 
@@ -12,26 +10,25 @@ The purpose of this project is to learn React Native components, Expo, reusable 
 - Expo
 - TypeScript
 - Expo Router
-- React Native StyleSheet
+- FlatList
+- StyleSheet
+- Flexbox
+- Pressable and Alert
 - Expo Go
 
 ## Features
 
 - MyStore home screen
-- Welcome message and promotional banner
-- Four product categories
-- Featured products with images, names, and prices
+- Product listing using FlatList
+- At least 8 sample products using local data
 - Reusable ProductCard component
-- Reusable CategoryItem component
-- Reusable SectionHeader component
-- Reusable PrimaryButton component
-- Scrollable home screen
+- Product images, names, prices, and categories
+- Unique and stable product IDs
+- Two-column product grid
+- View Details button with product information Alert
+- Friendly message when no products are available
+- Consistent image sizes and mobile-friendly styling
 - Flexbox-based layouts
-- Product details screen
-- Add to Cart functionality
-- Cart screen with product names, prices, and quantities
-- Increase and decrease product quantities
-- Automatic cart total calculation
 
 ## Project Structure
 
@@ -49,7 +46,9 @@ ecommerce-mobile/
 │   │   ├── CategoryItem.tsx
 │   │   ├── SectionHeader.tsx
 │   │   └── PrimaryButton.tsx
-│   └── context/
+│   ├── context/
+│   └── data/
+│       └── products.ts
 ├── assets/
 ├── package.json
 ├── app.json
@@ -60,65 +59,62 @@ ecommerce-mobile/
 
 - Node.js LTS
 - npm
-- VS Code
-- Expo Go on an Android phone
+- Visual Studio Code
+- Expo Go or an Android emulator
 
-## Installation
+## Installation and Running
 
-Clone or download the project, then open the project folder in the terminal.
+1. Open the project folder in the terminal.
+2. Install dependencies:
 
-Install dependencies:
+   `npm install`
 
-```bash
-npm install
-```
+3. Start the Expo development server:
 
-Start the Expo development server:
+   `npx expo start`
 
-```bash
-npx expo start
-```
-
-Scan the QR code using Expo Go on your Android phone. Make sure your computer and phone can connect to the same network.
+4. Open the app using Expo Go or an emulator.
 
 ## React Native Concepts Learned
 
-- `View` for layouts and containers
-- `Text` for displaying text
-- `Image` for product images
-- `ScrollView` for scrollable content
-- `Pressable` and touchable components for interactions
-- `StyleSheet` for styling
-- Props for passing data to reusable components
-- Flexbox for mobile layouts
-- Expo for running and testing the mobile app
+- View and Text for layouts and text
+- Image for displaying product images
+- FlatList for efficient list rendering
+- keyExtractor for identifying list items
+- Props for passing product data to ProductCard
+- StyleSheet for styling
+- Pressable and Alert for user interaction
+- Flexbox for responsive layouts
+- Local sample data separated from UI components
+
+## Data
+
+Product information is stored separately in `src/data/products.ts`. Each product has a unique ID, name, price, category, and image URL. The products are displayed through the reusable ProductCard component.
+
+## Testing Checklist
+
+- [ ] App starts using `npx expo start`
+- [ ] At least 8 products display
+- [ ] Every product displays its image, name, price, and category
+- [ ] FlatList uses `keyExtractor`
+- [ ] ProductCard is reused for all products
+- [ ] Product IDs are unique and stable
+- [ ] View Details displays the selected product information
+- [ ] Empty data displays a friendly message
+- [ ] Images load correctly
+- [ ] Layout works on a small phone screen
+- [ ] Updated code is pushed to GitHub
 
 ## Backend
 
-The existing Node.js and Express backend will be reused in later assignments. This assignment focuses on the React Native UI and basic mobile development.
-
-## Testing
-
-The app has been tested on an Android phone using Expo Go.
-
-Verified functionality includes:
-
-- Home screen display
-- Category and product display
-- Product images
-- Product details navigation
-- Add to Cart
-- View Cart
-- Quantity increase and decrease
-- Cart total calculation
-- Home screen scrolling
+This assignment uses local sample data and does not require a backend API.
 
 ## Future Improvements
 
-- Connect product data to the existing backend API
-- Implement product listing using FlatList
-- Add authentication and user-specific features in later assignments
+- Product details screen navigation
+- Integration with the existing backend in a future assignment
+- Additional shopping features in later assignments
 
 ## Author
 
-React Native Assignment 1 — MyStore Mobile E-Commerce Application
+React Native Assignment 2 — MyStore Mobile E-Commerce Application
