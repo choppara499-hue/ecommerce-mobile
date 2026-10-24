@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   View,
@@ -6,7 +5,6 @@ import {
   Image,
   StyleSheet,
   Pressable,
-  Alert,
 } from "react-native";
 
 type Product = {
@@ -19,18 +17,13 @@ type Product = {
 
 type ProductCardProps = {
   product: Product;
+  onPress: () => void;
 };
 
-export default function ProductCard({ product }: ProductCardProps) {
-  const handlePress = () => {
-    Alert.alert(
-      "Product Selected",
-      `${product.name}\nPrice: ₹${product.price.toLocaleString(
-        "en-IN"
-      )}\nCategory: ${product.category}`
-    );
-  };
-
+export default function ProductCard({
+  product,
+  onPress,
+}: ProductCardProps) {
   return (
     <View style={styles.card}>
       <Image
@@ -41,7 +34,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       <Text style={styles.productId}>ID: {product.id}</Text>
 
-      <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
+      <Text
+        style={styles.name}
+        numberOfLines={2}
+        ellipsizeMode="tail"
+      >
         {product.name}
       </Text>
 
@@ -62,7 +59,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           styles.button,
           pressed && styles.buttonPressed,
         ]}
-        onPress={handlePress}
+        onPress={onPress}
         accessibilityRole="button"
         accessibilityLabel={`View details for ${product.name}`}
       >
