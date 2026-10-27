@@ -7,8 +7,8 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 
-import ProductCard from "../components/ProductCard";
-import { products } from "../data/products";
+import ProductCard from "../../../src/components/ProductCard";
+import { products } from "../../../src/data/products";
 
 export default function HomeScreen() {
   const router = useRouter();

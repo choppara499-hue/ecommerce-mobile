@@ -12,7 +12,7 @@ import {
   router,
 } from "expo-router";
 
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../../src/context/CartContext";
 
 export default function ProductDetailsScreen() {
   const { name, price, emoji } = useLocalSearchParams<{

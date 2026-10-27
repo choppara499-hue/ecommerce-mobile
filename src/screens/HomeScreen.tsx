@@ -1,72 +1,145 @@
-
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
+  ActivityIndicator,
   Pressable,
+  RefreshControl,
 } from "react-native";
-
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import ProductCard from "../components/ProductCard";
-import { products } from "../data/products";
-import type { RootStackParamList } from "../../App";
 
-type Props = NativeStackScreenProps<
-  RootStackParamList,
-  "Products"
->;
+import type { RootStackParamList } from "../../App";
+import ProductCard from "../components/ProductCard";
+import { fetchProducts } from "../services/api";
+import type { Product } from "../services/api";
+
+type Props = NativeStackScreenProps<RootStackParamList, "Products">;
 
 export default function HomeScreen({ navigation }: Props) {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState("");
+
+  const loadProducts = useCallback(async () => {
+    setError("");
+
+    try {
+      const data = await fetchProducts();
+      setProducts(data);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Could not load products. Please try again."
+      );
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadProducts();
+  }, [loadProducts]);
+
+  const retry = () => {
+    setLoading(true);
+    loadProducts();
+  };
+
+  // Loading state
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color="#2563eb" />
+        <Text style={styles.message}>Loading products...</Text>
+      </View>
+    );
+  }
+
+  // Error state
+  if (error && products.length === 0) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.errorTitle}>
+          Oops! Couldn't load products.
+        </Text>
+
+        <Text style={styles.message}>
+          Please check your connection and try again.
+        </Text>
+
+        <Pressable style={styles.retryButton} onPress={retry}>
+          <Text style={styles.retryText}>Retry</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
+  // Empty state
+  if (products.length === 0) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.message}>No products available.</Text>
+
+        <Pressable style={styles.retryButton} onPress={retry}>
+          <Text style={styles.retryText}>Retry</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
+  // Success state
   return (
     <View style={styles.container}>
       <Text style={styles.title}>MyStore 🛒</Text>
 
-      <Text style={styles.heading}>All Products</Text>
+      <Text style={styles.heading}>
+        All Products ({products.length})
+      </Text>
 
       <Text style={styles.subtitle}>
         Explore our latest products
       </Text>
 
-      {/* Login and Register Buttons */}
-      <View style={styles.buttonRow}>
-        <Pressable
-          style={styles.loginButton}
-          onPress={() => navigation.navigate("Login")}
-        >
-          <Text style={styles.buttonText}>Login</Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.registerButton}
-          onPress={() => navigation.navigate("Register")}
-        >
-          <Text style={styles.buttonText}>Register</Text>
-        </Pressable>
-      </View>
+      {/* Refresh error: keep showing existing products */}
+      {error !== "" && (
+        <Text style={styles.warning}>
+          Refresh failed. Showing loaded products.
+        </Text>
+      )}
 
       <FlatList
         data={products}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <ProductCard
-            product={item}
-            onPress={() =>
-              navigation.navigate("ProductDetails", {
-                id: String(item.id),
-              })
-            }
-          />
-        )}
-        contentContainerStyle={styles.listContent}
+        keyExtractor={(item) => item.id}
         numColumns={2}
+        columnWrapperStyle={styles.row}
+        contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={
-          <Text style={styles.emptyText}>
-            No products available. Please check again later!
-          </Text>
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+              loadProducts();
+            }}
+          />
         }
+        renderItem={({ item }) => (
+          <View style={styles.cardContainer}>
+            <ProductCard
+              product={item}
+              onPress={() =>
+                navigation.navigate("ProductDetails", {
+                  id: item.id,
+                })
+              }
+            />
+          </View>
+        )}
       />
     </View>
   );
@@ -93,36 +166,49 @@ const styles = StyleSheet.create({
     color: "#666",
     marginBottom: 16,
   },
-  buttonRow: {
-    flexDirection: "row",
-    gap: 12,
-    marginBottom: 18,
-  },
-  loginButton: {
-    flex: 1,
-    backgroundColor: "#2563eb",
-    padding: 13,
-    borderRadius: 10,
-  },
-  registerButton: {
-    flex: 1,
-    backgroundColor: "#16a34a",
-    padding: 13,
-    borderRadius: 10,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
   listContent: {
     paddingBottom: 20,
   },
-  emptyText: {
-    textAlign: "center",
-    marginTop: 30,
-    fontSize: 16,
+  row: {
+    justifyContent: "space-between",
+  },
+  cardContainer: {
+    width: "48%",
+    marginBottom: 12,
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 24,
+    backgroundColor: "#fff",
+  },
+  message: {
+    fontSize: 14,
     color: "#666",
+    marginTop: 10,
+    textAlign: "center",
+  },
+  errorTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#dc2626",
+    textAlign: "center",
+  },
+  retryButton: {
+    backgroundColor: "#2563eb",
+    paddingHorizontal: 28,
+    paddingVertical: 12,
+    borderRadius: 8,
+    marginTop: 18,
+  },
+  retryText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  warning: {
+    color: "#b45309",
+    marginBottom: 10,
   },
 });

@@ -1,69 +1,83 @@
 # MyStore – React Native E-Commerce App
 
 ## Project Description
-MyStore is a mobile e-commerce application built using React Native, Expo, and TypeScript.
-
-This assignment adds Login and Register screens with UI validation and demo-only success messages.
+MyStore is a React Native e-commerce mobile application built using Expo and TypeScript. It fetches product data from a backend API.
 
 ## Technologies Used
 - React Native
 - Expo
 - TypeScript
 - React Navigation
-- Native Stack Navigator
 - FlatList
-- StyleSheet
-- useState
-- Expo Go
+- REST API
 
 ## Features
-- Product listing screen
+- Display products from live backend API
+- Two-column product grid
 - Product details screen
-- Login screen
-- Register screen
-- Email validation
-- Required field validation
-- Password show/hide
-- Password confirmation validation
-- Login and Register navigation
-- Demo-only success alerts
+- Loading state
+- Error state with Retry
+- Empty products state
+- Pull-to-refresh
+- Login and Register UI
 
 ## Project Setup
-
 1. Clone the repository.
-2. Open the project folder.
-3. Install dependencies.
+2. Install dependencies:
 
-```bash
-npm install
-```
+   npm install
 
-4. Start Expo.
+3. Configure the API base URL in:
+   `src/services/api.ts`
 
-```bash
-npx expo start
-```
+4. Start Expo:
 
-5. Scan the QR code using Expo Go, or run on an available emulator.
+   npx expo start --clear
 
-## Screens
-- HomeScreen
-- ProductDetailsScreen
-- LoginScreen
-- RegisterScreen
+## Backend Configuration
+Start the backend from the backend project directory:
 
-## Navigation
-- Products → Product Details
-- Login → Register
-- Register → Login
+   npm install
+   npm start
 
-## Demo Note
-This assignment uses UI-only Login and Register flows.
+The backend should be available on port 5000.
 
-No real authentication, backend account creation, or user storage is implemented.
+For local device testing, configure the API URL using your computer's reachable LAN IP address.
+
+Example:
+`http://YOUR_COMPUTER_IP:5000`
+
+Do not commit secrets, passwords, database credentials, or private tokens.
+
+## API Endpoint
+GET `/product/list`
+
+Purpose: Fetch the products list.
+
+## Sample Response Shape
+{
+  "success": true,
+  "count": 1,
+  "data": [
+    {
+      "_id": "sample_product_id",
+      "name": "Laptop",
+      "price": 55000,
+      "description": "Sample laptop",
+      "image": "https://example.com/product-image.jpg",
+      "stock": 10,
+      "status": "active",
+      "category": "Electronics"
+    }
+  ]
+}
+
+This is an illustrative response shape. Actual products and IDs may differ.
+
+## Error Handling
+- Displays a loading indicator while fetching.
+- Displays an error message and Retry option when fetching fails.
+- Displays an empty state if no products are available.
 
 ## Screenshots
-See the screenshots folder for actual application screenshots.
-
-## Author
-Student Project – MyStore
+Add success and error state screenshots in the project documentation or submission folder.

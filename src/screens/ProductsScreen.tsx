@@ -35,7 +35,7 @@ export default function ProductsScreen({ navigation }: Props) {
             }
           >
             <Text style={styles.emoji}>
-              {item.emoji || "📦"}
+              { "📦"}
             </Text>
 
             <View style={styles.info}>
