@@ -1,9 +1,11 @@
+
 import React from "react";
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
+  Pressable,
 } from "react-native";
 
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -26,6 +28,23 @@ export default function HomeScreen({ navigation }: Props) {
       <Text style={styles.subtitle}>
         Explore our latest products
       </Text>
+
+      {/* Login and Register Buttons */}
+      <View style={styles.buttonRow}>
+        <Pressable
+          style={styles.loginButton}
+          onPress={() => navigation.navigate("Login")}
+        >
+          <Text style={styles.buttonText}>Login</Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.registerButton}
+          onPress={() => navigation.navigate("Register")}
+        >
+          <Text style={styles.buttonText}>Register</Text>
+        </Pressable>
+      </View>
 
       <FlatList
         data={products}
@@ -73,6 +92,29 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#666",
     marginBottom: 16,
+  },
+  buttonRow: {
+    flexDirection: "row",
+    gap: 12,
+    marginBottom: 18,
+  },
+  loginButton: {
+    flex: 1,
+    backgroundColor: "#2563eb",
+    padding: 13,
+    borderRadius: 10,
+  },
+  registerButton: {
+    flex: 1,
+    backgroundColor: "#16a34a",
+    padding: 13,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 15,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   listContent: {
     paddingBottom: 20,
